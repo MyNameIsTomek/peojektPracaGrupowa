@@ -8,6 +8,7 @@ theme:
 nav:
   - Strona główna: index.md
   - Opis systemu: opis_systemu.md
+  - Przykładowy kod: przykladowy_kod.md
   - Instalacja: instalacja.md
   - Instrukcja użytkownika: instrukcja_uzytkownika.md
   - Konfiguracja: konfiguracja.md
