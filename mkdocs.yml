@@ -1,0 +1,10 @@
+site_name: Projekt 16
+
+nav:
+  - Strona główna: index.md
+  - Opis systemu: opis_systemu.md
+  - Instalacja: instalacja.md
+  - Instrukcja użytkownika: instrukcja_uzytkownika.md
+  - Konfiguracja: konfiguracja.md
+  - Bezpieczeństwo: bezpieczenstwo.md
+  - Wdrożenie: wdrozenie.md
