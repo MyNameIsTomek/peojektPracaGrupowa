@@ -1,5 +1,8 @@
 site_name: Projekt 16
 
+theme:
+  name: material
+
 nav:
   - Strona główna: index.md
   - Opis systemu: opis_systemu.md
