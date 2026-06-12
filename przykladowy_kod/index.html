@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../konfiguracja/">
+        <link rel="prev" href="../opis_systemu/">
       
       
-        <link rel="next" href="../wdrozenie/">
+        <link rel="next" href="../instalacja/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Bezpieczeństwo - Projekt 16</title>
+        <title>Przykładowy kod - Projekt 16</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#bezpieczenstwo" class="md-skip">
+        <a href="#przykadowy-kod" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Bezpieczeństwo
+              Przykładowy kod
             
           </span>
         </div>
@@ -273,10 +273,19 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../przykladowy_kod/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -292,6 +301,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -381,19 +391,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../bezpieczenstwo/" class="md-nav__link">
         
   
   
@@ -409,7 +410,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -479,16 +479,97 @@
   
 
 
-<h1 id="bezpieczenstwo">Bezpieczeństwo</h1>
-<p>Program działa lokalnie na komputerze użytkownika.</p>
-<p>Program:</p>
+<h1 id="przykadowy-kod">Przykładowy kod</h1>
+<p>Poniższy, uproszczony przykład przedstawia najważniejsze elementy aplikacji: wyświetlanie planszy, sterowanie pionkiem, blokowanie przeszkód oraz wykrywanie dotarcia do mety.</p>
+<p>Sterowanie odbywa się za pomocą klawiszy:</p>
 <ul>
-<li>nie przesyła danych przez internet,</li>
-<li>nie zapisuje danych osobowych,</li>
-<li>nie wymaga logowania,</li>
-<li>nie korzysta z baz danych.</li>
+<li><code>W</code>, <code>S</code>, <code>A</code>, <code>D</code> - ruch w pionie i poziomie,</li>
+<li><code>Q</code>, <code>E</code>, <code>Z</code>, <code>C</code> - ruch po skosie,</li>
+<li><code>X</code> - zakończenie programu.</li>
 </ul>
-<p>Dostęp do programu posiada wyłącznie użytkownik uruchamiający aplikację.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+#define WIERSZE 7
+#define KOLUMNY 10
+
+const char plansza[WIERSZE][KOLUMNY + 1] = {
+    &quot;##########&quot;,
+    &quot;#        #&quot;,
+    &quot;#  ###   #&quot;,
+    &quot;#    #   #&quot;,
+    &quot;# ##     #&quot;,
+    &quot;#       M#&quot;,
+    &quot;##########&quot;
+};
+
+void wyswietl_plansze(int pionek_x, int pionek_y)
+{
+    int y;
+    int x;
+
+    for (y = 0; y &lt; WIERSZE; y++) {
+        for (x = 0; x &lt; KOLUMNY; x++) {
+            if (x == pionek_x &amp;&amp; y == pionek_y) {
+                putchar('P');
+            } else {
+                putchar(plansza[y][x]);
+            }
+        }
+        putchar('\n');
+    }
+}
+
+int main(void)
+{
+    int pionek_x = 1;
+    int pionek_y = 1;
+    char ruch;
+
+    while (plansza[pionek_y][pionek_x] != 'M') {
+        int zmiana_x = 0;
+        int zmiana_y = 0;
+        int nowy_x;
+        int nowy_y;
+
+        wyswietl_plansze(pionek_x, pionek_y);
+        printf(&quot;Podaj ruch (W/S/A/D/Q/E/Z/C lub X): &quot;);
+        if (scanf(&quot; %c&quot;, &amp;ruch) != 1) {
+            return 0;
+        }
+
+        switch (ruch) {
+            case 'w': case 'W': zmiana_y = -1; break;
+            case 's': case 'S': zmiana_y = 1;  break;
+            case 'a': case 'A': zmiana_x = -1; break;
+            case 'd': case 'D': zmiana_x = 1;  break;
+            case 'q': case 'Q': zmiana_x = -1; zmiana_y = -1; break;
+            case 'e': case 'E': zmiana_x = 1;  zmiana_y = -1; break;
+            case 'z': case 'Z': zmiana_x = -1; zmiana_y = 1;  break;
+            case 'c': case 'C': zmiana_x = 1;  zmiana_y = 1;  break;
+            case 'x': case 'X': return 0;
+            default:
+                printf(&quot;Nieznane polecenie.\n\n&quot;);
+                continue;
+        }
+
+        nowy_x = pionek_x + zmiana_x;
+        nowy_y = pionek_y + zmiana_y;
+
+        if (plansza[nowy_y][nowy_x] == '#') {
+            printf(&quot;To pole jest niedostepne.\n\n&quot;);
+        } else {
+            pionek_x = nowy_x;
+            pionek_y = nowy_y;
+        }
+    }
+
+    wyswietl_plansze(pionek_x, pionek_y);
+    printf(&quot;Gratulacje! Pionek dotarl do mety.\n&quot;);
+
+    return 0;
+}
+</code></pre>
+<p>Znak <code>#</code> oznacza przeszkodę, <code>P</code> aktualne położenie pionka, a <code>M</code> pole końcowe.</p>
 
 
 
