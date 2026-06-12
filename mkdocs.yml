@@ -1,4 +1,6 @@
 site_name: Projekt 16
+site_description: Dokumentacja programu do przejścia pionkiem po planszy
+repo_url: https://github.com/MyNameIsTomek/peojektPracaGrupowa
 
 theme:
   name: material

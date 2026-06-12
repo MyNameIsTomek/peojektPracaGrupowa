@@ -8,7 +8,8 @@
 ## Pobranie projektu
 
 ```bash
-git clone https://github.com/nazwa_uzytkownika/projekt16.git
+git clone https://github.com/MyNameIsTomek/peojektPracaGrupowa.git
+cd peojektPracaGrupowa
 ```
 
 ## Kompilacja
@@ -19,6 +20,14 @@ gcc main.c -o projekt
 
 ## Uruchomienie
 
-```bash
+Windows:
+
+```powershell
 projekt.exe
+```
+
+Linux i macOS:
+
+```bash
+./projekt
 ```

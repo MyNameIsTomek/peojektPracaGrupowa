@@ -9,3 +9,7 @@ Po uruchomieniu programu:
 5. Dotrzyj do pola końcowego.
 
 Program poinformuje użytkownika o zakończeniu gry.
+
+## Nieprawidłowy ruch
+
+Jeżeli wybrany ruch prowadzi na pole niedostępne, program go zablokuje. W takiej sytuacji należy wybrać inny kierunek.
